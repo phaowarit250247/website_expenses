@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">📜 ใบเสร็จค่าใช้จ่าย</h5>
+            <span class="fw-bold">รวมทั้งหมด: {{ total_expense }} บาท</span>
+        </div>
+        <div class="card-body">
+            {% if expenses %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover align-middle">
+                        <thead class="table-secondary text-center">
+                            <tr>
+                                <th>#</th>
+                                <th>วันที่</th>
+                                <th>หมวดหมู่</th>
+                                <th>จำนวนเงิน (บาท)</th>
+                                <th>รายละเอียด</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for expense in expenses %}
+                                <tr>
+                                    <td class="text-center">{{ forloop.counter }}</td>
+                                    <td class="text-center">{{ expense.date }}</td>
+                                    <td class="text-center">{{ expense.category }}</td>
+                                    <td class="text-end">{{ expense.amount }}</td>
+                                    <td>{{ expense.note|default:"-" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted">ยังไม่มีรายการบันทึกค่าใช้จ่าย</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
